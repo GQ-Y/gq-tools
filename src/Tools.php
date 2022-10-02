@@ -1,6 +1,6 @@
 <?php
 
-namespace GqTools\ThinkJwt;
+namespace GqTools\Tools;
 
 class Tools
 {
@@ -25,7 +25,7 @@ class Tools
         $ip = (false !== ip2long($ip)) ? $ip : '0.0.0.0';
         return $ip;
     }
-    
+
     // 递归删除文件夹
     public static function delFile($dir, $file_type = '')
     {

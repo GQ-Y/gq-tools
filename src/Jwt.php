@@ -1,6 +1,6 @@
 <?php
 
-namespace GqTools\ThinkJwt;
+namespace GqTools\Tools;
 
 use DateTimeImmutable;
 use DateTimeZone;
