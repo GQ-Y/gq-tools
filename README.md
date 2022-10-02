@@ -10,7 +10,6 @@ composer require gq-tools
 ~~~
 插件列表
 * think-jwt Thinkphp6 JWT
-* delFile 递归删除文件夹
 * getIp  获取环境服务器IP地址
 
 # think-jwt
@@ -203,10 +202,7 @@ $parseResult = Jwt::parse(Jwt::getRequestToken());
 dd($parseResult);//['code' => 10000, 'msg' => 'token已经被注销', 'data' => []]
 ```
 
-# delFile
-~~~php
-  Tools::delFile(APP_DIR . '/uploads'); 
-~~~
+
 
 # getIp
 ~~~php
