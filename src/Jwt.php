@@ -2,6 +2,8 @@
 
 namespace GqTools\ThinkJwt;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Lcobucci\Clock\SystemClock;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
