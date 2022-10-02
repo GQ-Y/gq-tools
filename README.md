@@ -1,15 +1,25 @@
+# GQ Tools
+    GQ Tools工具库合集，内部包含了丰富的常用工具类，方便开发者快速开发项目。
+
+## 1. GQ Tools工具库介绍
+
+安装
+
+~~~
+composer require gq-tools
+~~~
+插件列表
+* think-jwt Thinkphp6 JWT
+* delFile 递归删除文件夹
+* getIp  获取环境服务器IP地址
+
 # think-jwt
 
 基于[lcobucci/jwt](https://packagist.org/packages/lcobucci/jwt)封装的一个jwt工具包,在前后端分离时
 它非常有用。
 
-# 安装
 
-~~~
-composer require gq-tools/think-jwt
-~~~
-
-# 配置
+#### 配置
 
 /config/jwt.php
 
@@ -39,11 +49,11 @@ return [
 ];
 ```
 
-# 使用
+ 使用
 
 think-jwt的使用方式非常简单,因为它不管你是如何传递token参数的，你可以选择Header、Cookie、Param，那都是你的自由,think-jwt只纯粹的提供3个核心静态方法(create、parse、logout)和一个辅助静态方法(getRequestToken)
 
-## getRequestToken
+##### getRequestToken
 
 一般情况都是在请求头中通过`Authorization`字段传递token,
 所以该方法就是快速获取请求头中`Authorization`的token值
@@ -76,7 +86,7 @@ RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
 ~~~
 
-## create
+create
 
 生成token
 
@@ -94,7 +104,7 @@ $token = Jwt::create(['id'=>100,'name'=>'jack']);
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnh4eC5jb20iLCJhdWQiOiJodHRwczpcL1wvd3d3Lnh4eC5jb20iLCJqdGkiOiIzZjJnNTdhOTJhYSIsImlhdCI6MTY1MTg1MTQ2MywibmJmIjoxNjUxODUxNDYyLCJleHAiOjE2NTE4NTg2NjMsIl90aGlua0p3dCI6IntcImlkXCI6MTAwLFwibmFtZVwiOlwiSmFja1wifSJ9.yVjHKxtZii3YfSwGMfFX_PIuBM5co-xpALx7p-Ld2_A
 ~~~
 
-## parse
+parse
 
 用于解析token，返回值是一个包含code,msg,data的数组,解析返回不同的状态码和说明,
 当然了,这一部分逻辑推荐放中间件中去执行
@@ -116,8 +126,6 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnh4eC5jb20iLCJ
 | 10005 | 编号验证失败 |
 | 10006 | 主题验证失败 |
 | 10007 | 签名密钥验证失败 |
-
-
 
 
 下面是在中间件中验证token的示例代码:
@@ -168,7 +176,7 @@ public function userInfo(Request $request)
 
 
 
-## logout
+logout
 
 Jwt的token一经签发是它是无法被注销的，所以只能通过服务端来进行判断(结果到这里又变成有状态的了),这里
 是通过把要注销的token存储到缓存中，所以配置文件`jwt.php`中它有个`delete_key`配置就是用来实现注销功能的，默认
@@ -195,3 +203,12 @@ $parseResult = Jwt::parse(Jwt::getRequestToken());
 dd($parseResult);//['code' => 10000, 'msg' => 'token已经被注销', 'data' => []]
 ```
 
+# delFile
+~~~php
+  Tools::delFile(APP_DIR . '/uploads'); 
+~~~
+
+# getIp
+~~~php
+  Tools::getIp();
+~~~
