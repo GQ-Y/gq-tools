@@ -6,7 +6,7 @@
 安装
 
 ~~~
-composer require gq-tools
+composer require gq-tools/tools
 ~~~
 插件列表
 * think-jwt Thinkphp6 JWT
