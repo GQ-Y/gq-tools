@@ -1,6 +1,6 @@
 {
     "name": "gq-tools/tools",
-    "description": "GQ Tools",
+    "description": "GQ Tools for PHP",
     "keywords": [
         "thinkphp6",
         "think-jwt",
