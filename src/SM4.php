@@ -52,7 +52,6 @@ class SM4
 
     /**
      * sm4加密（ecb）
-     * @param $key 16位十六进制的字符，比如asw34a5ses5w81wf
      * @param $data
      * @return string
      */
@@ -74,7 +73,6 @@ class SM4
 
     /**
      * sm4解密
-     * @param $key
      * @param $data
      * @return bool|string
      */
