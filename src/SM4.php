@@ -2,6 +2,8 @@
 
 namespace GqTools\Tools;
 
+use think\facade\Config;
+
 /**
  * Sm4加密解密类
  * Class Sm4
@@ -43,7 +45,6 @@ class SM4
     const SM4_FK = [0xA3B1BAC6, 0x56AA3350, 0x677D9197, 0xB27022DC];
 
     public static $_rk = [];
-    public static $_block_size = 16;
 
     public function __construct()
     {
@@ -52,15 +53,16 @@ class SM4
     /**
      * sm4加密（ecb）
      * @param $key 16位十六进制的字符，比如asw34a5ses5w81wf
-     * @param $data 原始数据
+     * @param $data
      * @return string
      */
-    public static function encrypt($key, $data)
+    public static function encrypt($data)
     {
+        $key = Config::get('jwt.key');
         self::sm4KeySchedule($key);
 
-        $bytes = self::pad($data, self::$_block_size);
-        $chunks = array_chunk($bytes, self::$_block_size);
+        $bytes = self::pad($data);
+        $chunks = array_chunk($bytes, Config::get('jwt.key_len'));
 
         $ciphertext = "";
         foreach ($chunks as $chunk) {
@@ -76,16 +78,17 @@ class SM4
      * @param $data
      * @return bool|string
      */
-    public static function decrypt($key, $data)
+    public static function decrypt($data)
     {
+        $key = Config::get('jwt.key');
         $data = base64_decode($data);
-        if (strlen($data) < 0 || strlen($data) % self::$_block_size != 0) {
+        if (strlen($data) < 0 || strlen($data) % Config::get('jwt.key_len') != 0) {
             return false;
         }
 
         self::sm4KeySchedule($key);
         $bytes = unpack("C*", $data);
-        $chunks = array_chunk($bytes, self::$_block_size);
+        $chunks = array_chunk($bytes, Config::get('jwt.key_len'));
 
         $plaintext = "";
         foreach ($chunks as $chunk) {
@@ -157,7 +160,7 @@ class SM4
     public static function pad($data)
     {
         $bytes = self::stringToBytes($data);
-        $rem = self::$_block_size - count($bytes) % self::$_block_size;
+        $rem = Config::get('jwt.key_len') - count($bytes) % Config::get('jwt.key_len');
         for ($i = 0; $i < $rem; $i++) {
             array_push($bytes, $rem);
         }
