@@ -11,6 +11,7 @@ composer require gq-tools/tools
 插件列表
 * think-jwt Thinkphp6 JWT
 * getIp  获取环境服务器IP地址
+* SM4 国标SM4加密算法
 
 # think-jwt
 
@@ -206,5 +207,18 @@ dd($parseResult);//['code' => 10000, 'msg' => 'token已经被注销', 'data' => 
 
 # getIp
 ~~~php
-  Tools::getIp();
+Tools::getIp();
+~~~
+
+# SM4国标加密
+~~~php
+$key = "1234567890123456";
+$data = '123456';
+
+//加密
+$enc = SM4::encrypt($key, $data);
+echo "加密后: $enc\n"; //G7EeTPnuvSU41T68qsuc/g==
+//解密
+$decdata = SM4::decrypt($key, $enc);
+echo "解密后: $decdata\n"; //123456
 ~~~
